@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import date
 
 
 app = Flask(__name__)
@@ -20,7 +20,7 @@ with app.app_context():
 def index():
     if request.method == 'GET':
         posts = Post.query.order_by(Post.due).all()
-        return render_template('index.html', posts=posts, today=datetime.today())
+        return render_template('index.html', posts=posts, today=date.today())
 
     else:
         title = request.form.get('title')
@@ -38,3 +38,8 @@ def index():
 def create():
     return render_template('create.html')
 
+@app.route('/detail/<int:id>')
+def read(id):
+    post = Post.query.get(id)
+
+    return render_template('detail.html', post=post)
