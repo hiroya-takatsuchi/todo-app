@@ -6,5 +6,7 @@
 <h2>タイトル : {{ post.title }}</h2>
 <p>期限 : {{post.due.date()}}</p>
 <a href="detail/{{ post.id }}" role="button">詳細</a>
+<a href="update/{{ post.id }}" role="button">更新</a>
+<a href="delete/{{ post.id }}" role="button">削除</a>
 {% endfor %}
 {% endblock %}
