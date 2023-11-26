@@ -16,7 +16,10 @@
         <input name="q">
         <input type="submit" value="検索">
     </form>
-  {% block body %}{% endblock %}
+    <a href="?sort=due&order=asc">期限順に並べる</a>
+
+    <button onclick="sortByTitle()">名前順に並べる</button>
+{% block body %}{% endblock %}
 </body>
 
 </html>

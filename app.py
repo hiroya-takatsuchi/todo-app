@@ -22,7 +22,15 @@ with app.app_context():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        posts = Post.query.order_by(Post.due).all()
+
+        sort = request.args.get('sort')  
+        order = request.args.get('order')
+
+        if sort and order:
+            posts = Post.query.order_by(f"{sort} {order}").all()
+        else:
+            posts = Post.query.order_by(Post.due).all()
+
         return render_template('index.html', posts=posts, today=date.today())
 
     else:
