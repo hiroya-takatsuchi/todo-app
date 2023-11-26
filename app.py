@@ -11,9 +11,10 @@ db = SQLAlchemy(app)
 class Post(db.Model):
     __searchable__ = ['title', 'detail']
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(30), nullable=False)
+    title = db.Column(db.String(30), nullable=False, index=True)
     detail = db.Column(db.String(100))
-    due = db.Column(db.DateTime, nullable=False)
+    due = db.Column(db.DateTime, nullable=False, index=True)
+    
 
 with app.app_context():
     db.create_all()
@@ -75,3 +76,8 @@ def delete(id):
     db.session.delete(post)
     db.session.commit()
     return redirect('/')
+
+@app.route('/posts')
+def get_posts():
+    sort = request.args.get('sort') # ソート対象のカラム名 
+    order = request.args.get('order') 
